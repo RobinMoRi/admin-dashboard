@@ -125,7 +125,7 @@ export const themeSettings = (mode) => {
     return {
         palette: {
             mode: mode,
-            ...mode(mode === 'dark' ? {
+            ...(mode === 'dark' ? {
                 primary: {
                     main: colors.primary[500],
                 },
@@ -158,30 +158,30 @@ export const themeSettings = (mode) => {
             })
         },
         typography: {
-            fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+            fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
             fontSize: 12,
             h1: {
-                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
                 fontSize: 40,
             },
             h2: {
-                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
                 fontSize: 32,
             },
             h3: {
-                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
                 fontSize: 24,
             },
             h4: {
-                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
                 fontSize: 20,
             },
             h5: {
-                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
                 fontSize: 16,
             },
             h6: {
-                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
                 fontSize: 14,
             }
         }
