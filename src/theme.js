@@ -1,4 +1,4 @@
-import { createContexte, useState, useMemo }  from 'react';
+import { createContext, useState, useMemo }  from 'react';
 import { createTheme } from '@mui/material/styles';
 
 
@@ -158,7 +158,54 @@ export const themeSettings = (mode) => {
             })
         },
         typography: {
-            fontFamily: ["Soruce Sans Pro", "sans-seris"].join(",")
+            fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+            fontSize: 12,
+            h1: {
+                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontSize: 40,
+            },
+            h2: {
+                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontSize: 32,
+            },
+            h3: {
+                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontSize: 24,
+            },
+            h4: {
+                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontSize: 20,
+            },
+            h5: {
+                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontSize: 16,
+            },
+            h6: {
+                fontFamily: ["Soruce Sans Pro", "sans-seris"].join(","),
+                fontSize: 14,
+            }
         }
     }
+};
+
+
+// Context for color mode
+export const ColorModeContext = createContext({
+    toggleColorMode: () => {}
+})
+
+export const useMode = () => {
+    const [mode, setMode] = useState("dark");
+
+    const colorMode = useMemo(
+        () => ({
+            toggleColorMode: () => 
+            setMode((prev) => (prev === "light" ? "dark" : "light")),
+        }),
+        []
+    );
+
+    const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+    return [theme, colorMode];
 }
