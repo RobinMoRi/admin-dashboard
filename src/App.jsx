@@ -1,6 +1,8 @@
-import { Routes, Route } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import PocketBase from 'pocketbase'
 
 import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
@@ -19,11 +21,26 @@ import { UserContext } from './userContext'
 
 
 function App() {
+  const client = new PocketBase('http://127.0.0.1:8090');
   const [theme, colorMode] = useMode();
+  const [user, setUser] = useState();
+
+  const login = async () => {
+    console.log(import.meta.env.VITE_POCKETBASE_PASSWORD)
+    const authData = await client.users.authViaEmail('robin.moreno.rinding@gmail.com', import.meta.env.VITE_POCKETBASE_PASSWORD);
+    return authData;
+  }
+
+    
+  useEffect(() => {
+    const result = login();
+    console.log(result);
+  }, []);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <UserContext.Provider>
+        {/* <UserContext.Provider > */}
           <CssBaseline />
             <div className="app">
               <Sidebar />
@@ -44,7 +61,7 @@ function App() {
                 </Routes>
               </main>
             </div>
-          </UserContext.Provider>
+          {/* </UserContext.Provider> */}
         </ThemeProvider>
     </ColorModeContext.Provider>
   );
