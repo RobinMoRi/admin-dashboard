@@ -1,9 +1,11 @@
-import React, { useState }  from 'react';
+import React, { useState, useContext, useEffect }  from 'react';
 import { Menu, MenuItem, ProSidebar } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { tokens } from '../../theme';
+import {UserContext} from '../../userContext'
+import PocketBase from 'pocketbase'
 
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
@@ -39,6 +41,22 @@ const Sidebar = () => {
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState('Dashboard');
+    const {user, setUser} = useContext(UserContext);
+    const client = new PocketBase('http://127.0.0.1:8090');
+
+      const login = async () => {
+    const user = await client.users.authViaEmail(
+      'robin.moreno.rinding@gmail.com', 
+      import.meta.env.VITE_POCKETBASE_PASSWORD
+    );
+    console.log(user);
+    setUser(user.user);
+  }
+
+  // Change logic!!
+  useEffect(() => {
+    login();
+  }, []);
 
     return (
         <Box
@@ -101,7 +119,7 @@ const Sidebar = () => {
                                     sx={{
                                         m: "10px 0 0 0"
                                     }}
-                                >Robin Moreno Rinding</Typography>
+                                >{user ? user.profile.name : 'Not logged in'}</Typography>
                                 <Typography
                                     variant="h5" 
                                     color={colors.greenAccent[500]}
