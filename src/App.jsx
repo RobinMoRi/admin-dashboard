@@ -7,6 +7,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
 import Dashboard from './scenes/dashboard/index';
+import NotFound from './scenes/404/NotFound'
 import { UserContext, useUser } from './userContext' 
 // import Team from './scenes/team/index';
 // import Invoices from './scenes/invoices/index';
@@ -45,6 +46,7 @@ function App() {
                   <Route path="/faq" element={<FAQ/>}/>
                   <Route path="/geography" element={<Geography/>}/>
                   <Route path="/calendar" element={<calendar/>} /> */}
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
             </div>

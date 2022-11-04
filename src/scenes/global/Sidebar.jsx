@@ -100,7 +100,7 @@ const Sidebar = () => {
                     {!isCollapsed && (
                         <Box mb="25px">
                             <Box display="flex" justifyContent="center" alignItems="center">
-                                <img 
+                                {user ? <img 
                                     alt="profile-user"
                                     width="100px"
                                     height="100px"
@@ -109,7 +109,7 @@ const Sidebar = () => {
                                         cursor: "pointer",
                                         borderRadius: "50%"
                                     }}
-                                />
+                                /> : undefined}
                             </Box>
                             <Box textAlign="center">
                                 <Typography 
