@@ -5,6 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
 import Dashboard from './scenes/dashboard/index';
+import { UserContext } from './userContext' 
 // import Team from './scenes/team/index';
 // import Invoices from './scenes/invoices/index';
 // import Contacts from './scenes/contacts/index';
@@ -22,27 +23,29 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          <Sidebar />
-          <main className="content">
-            <Topbar />
-            <Routes>
-              <Route path="/" element={<Dashboard/>}/>
-              {/* <Route path="/team" element={<Team/>}/>
-              <Route path="/invoices" element={<Invoices/>}/>
-              <Route path="/contacts" element={<Contacts/>}/>
-              <Route path="/bar" element={<Bar/>}/>
-              <Route path="/form" element={<Form/>}/>
-              <Route path="/line" element={<Line/>}/>
-              <Route path="/pie" element={<Pie/>}/>
-              <Route path="/faq" element={<FAQ/>}/>
-              <Route path="/geography" element={<Geography/>}/>
-              <Route path="/calendar" element={<calendar/>} /> */}
-            </Routes>
-          </main>
-        </div>
-      </ThemeProvider>
+        <UserContext.Provider>
+          <CssBaseline />
+            <div className="app">
+              <Sidebar />
+              <main className="content">
+                <Topbar />
+                <Routes>
+                  <Route path="/" element={<Dashboard/>}/>
+                  {/* <Route path="/team" element={<Team/>}/>
+                  <Route path="/invoices" element={<Invoices/>}/>
+                  <Route path="/contacts" element={<Contacts/>}/>
+                  <Route path="/bar" element={<Bar/>}/>
+                  <Route path="/form" element={<Form/>}/>
+                  <Route path="/line" element={<Line/>}/>
+                  <Route path="/pie" element={<Pie/>}/>
+                  <Route path="/faq" element={<FAQ/>}/>
+                  <Route path="/geography" element={<Geography/>}/>
+                  <Route path="/calendar" element={<calendar/>} /> */}
+                </Routes>
+              </main>
+            </div>
+          </UserContext.Provider>
+        </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
