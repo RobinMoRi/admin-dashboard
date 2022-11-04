@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { proSidebar, Menu, MenuItem, ProSidebar } from 'react-pro-sidebar';
+import { Menu, MenuItem, ProSidebar } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -97,7 +97,7 @@ const Sidebar = () => {
                                 <Typography 
                                     variant="h3" 
                                     color={colors.grey[100]}
-                                    fontWeigth="bold"
+                                    fontWeight="bold"
                                     sx={{
                                         m: "10px 0 0 0"
                                     }}
@@ -105,7 +105,7 @@ const Sidebar = () => {
                                 <Typography
                                     variant="h5" 
                                     color={colors.greenAccent[500]}
-                                    fontWeigth="bold"
+                                    fontWeight="bold"
                                     sx={{
                                         m: "10px 0 0 0"
                                     }}>Admin</Typography>
