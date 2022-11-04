@@ -1,5 +1,7 @@
 import React, { createContext, useState, useMemo } from 'react';
 
+
+//Update with login screen
 const UserContext = createContext(null);
 
 const useUser = () => {

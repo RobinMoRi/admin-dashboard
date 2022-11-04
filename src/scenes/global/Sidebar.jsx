@@ -104,7 +104,7 @@ const Sidebar = () => {
                                     alt="profile-user"
                                     width="100px"
                                     height="100px"
-                                    src={"https://media-exp1.licdn.com/dms/image/C4E03AQEbk7_OvjlwHg/profile-displayphoto-shrink_200_200/0/1620939822491?e=1672272000&v=beta&t=uFDtLyJbunnBeC_F_dYV0598d3tZaOpcnL4yLl-G9bQ"}
+                                    src={`http://127.0.0.1:8090/api/files/systemprofiles0/${user?.profile.id}/${user?.profile.avatar}`}
                                     style={{
                                         cursor: "pointer",
                                         borderRadius: "50%"
