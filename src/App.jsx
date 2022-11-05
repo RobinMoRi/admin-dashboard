@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
@@ -8,6 +8,7 @@ import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
 import Dashboard from './scenes/dashboard/index';
 import NotFound from './scenes/404/NotFound'
+import Login from './scenes/auth/Login'
 import { UserContext, useUser } from './userContext' 
 // import Team from './scenes/team/index';
 // import Invoices from './scenes/invoices/index';
@@ -24,6 +25,7 @@ import { UserContext, useUser } from './userContext'
 function App() {
   const [theme, colorMode] = useMode();
   const user = useUser();
+  console.log(user)
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -31,11 +33,12 @@ function App() {
         <UserContext.Provider value={user}>
           <CssBaseline />
             <div className="app">
-              <Sidebar />
+              {user.user ? <Sidebar /> : undefined}
               <main className="content">
                 <Topbar />
                 <Routes>
                   <Route path="/" element={<Dashboard/>}/>
+                  <Route path="/login" element={<Login/>} />
                   {/* <Route path="/team" element={<Team/>}/>
                   <Route path="/invoices" element={<Invoices/>}/>
                   <Route path="/contacts" element={<Contacts/>}/>

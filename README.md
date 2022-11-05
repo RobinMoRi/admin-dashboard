@@ -7,9 +7,9 @@
 ### Execute app
 Locally serve pocketbase
 ```zsh
-    ./pocketbase serve
+./pocketbase serve
 ```
 Locally run react app
 ```zsh
-    npm run dev
+npm run dev
 ```
