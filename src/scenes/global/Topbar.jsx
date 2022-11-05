@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { Box, IconButton, useTheme, InputBase } from '@mui/material';
+import { Box, IconButton, useTheme, InputBase, Button } from '@mui/material';
+import { Link } from "react-router-dom";
 
 import { ColorModeContext, tokens } from '../../theme';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
@@ -9,15 +10,18 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 
+import {UserContext} from '../../userContext'
+
 
 const Topbar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
+    const {user, setUser} = useContext(UserContext);
 
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
-            <Box display="flex" backgroundColor={colors.primary[400]} borderRadius="3px">
+        { user ? <><Box display="flex" backgroundColor={colors.primary[400]} borderRadius="3px">
                 <InputBase sx={{ ml: 2, flex: 1}} placeholder="Search"></InputBase>
                 <IconButton type="button" sx={{p: 1}}>
                     <SearchIcon />
@@ -36,7 +40,7 @@ const Topbar = () => {
                 <IconButton>
                     <PersonOutlinedIcon />
                 </IconButton>
-            </Box>
+            </Box></> : <Button color="secondary" variant="contained"><Link to="/login">Login</Link></Button>}
         </Box>
     );
 }

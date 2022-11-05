@@ -3,6 +3,7 @@ import { Box, Typography, useTheme, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from "yup";
 import PocketBase from 'pocketbase'
+import { useNavigate } from 'react-router-dom';
 
 import {UserContext} from '../../userContext'
 import { ColorModeContext, tokens } from '../../theme';
@@ -13,12 +14,14 @@ const Login = () => {
     const colorMode = useContext(ColorModeContext);
     const client = new PocketBase(import.meta.env.VITE_POCKETBASE_HOST);
     const {user, setUser} = useContext(UserContext);
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
           email: '',
           password: '',
         },
+        validationSchema: loginSchema,
         onSubmit: (values) => {
           login(values)
         }
@@ -31,6 +34,7 @@ const Login = () => {
         );
         console.log(user);
         setUser(user.user);
+        navigate('/');
     }
 
 
@@ -47,6 +51,8 @@ const Login = () => {
                             name="email"
                             value={formik.values.email}
                             onChange={formik.handleChange}
+                            error={!!formik.touched.email && !!formik.errors.email}
+                            helperText={formik.touched.email && formik.touched.email}
                             sx={{mb: "20px"}}
                             />
                         <TextField
@@ -55,8 +61,10 @@ const Login = () => {
                             variant="filled"
                             type="password"
                             name="password"
-                            onChange={formik.handleChange}
                             value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={!!formik.touched.password && !!formik.errors.password}
+                            helperText={formik.touched.password && formik.touched.password}
                             />
                     </Box>
                     <Box display="flex" justifyContent="center" alignItems="center">
