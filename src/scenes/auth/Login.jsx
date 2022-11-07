@@ -5,7 +5,7 @@ import * as yup from "yup";
 import PocketBase from 'pocketbase'
 import { useNavigate } from 'react-router-dom';
 
-import {UserContext} from '../../userContext'
+import { UserContext } from '../../userContext'
 import { ColorModeContext, tokens } from '../../theme';
 
 const Login = () => {

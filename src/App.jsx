@@ -25,7 +25,6 @@ import { UserContext, useUser } from './userContext'
 function App() {
   const [theme, colorMode] = useMode();
   const user = useUser();
-  console.log(user)
 
   return (
     <ColorModeContext.Provider value={colorMode}>

@@ -57,7 +57,7 @@ const Signup = () => {
             <Box padding="20px" display="flex" justifyContent="center" alignItems="center" backgroundColor={colors.primary[400]} borderRadius="12px">
                 <form onSubmit={formik.handleSubmit}>
                     <Box padding="20px">
-                    <Typography color={colors.redAccent[600]} fullWidth>{error}</Typography>
+                    {error ? <Typography color={colors.redAccent[600]} fullWidth>{error}</Typography> : undefined}
                         <TextField 
                             fullWidth
                             label="Email"

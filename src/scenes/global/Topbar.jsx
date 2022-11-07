@@ -11,7 +11,7 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 
 import {UserContext} from '../../userContext'
-
+import { Logout } from '../auth'
 
 const Topbar = () => {
     const theme = useTheme();
@@ -44,6 +44,7 @@ const Topbar = () => {
                     <IconButton>
                         <PersonOutlinedIcon />
                     </IconButton>
+                    <Logout />
                 </Box>
             </Box> : 
             <Box display="flex" justifyContent="flex-end" p={2}>
