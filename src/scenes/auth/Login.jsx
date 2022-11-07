@@ -8,6 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../userContext'
 import { ColorModeContext, tokens } from '../../theme';
 
+/* TODO
+- Add caching/cookie/storage to store user token that should be used in request
+- Add checking if user is authenticated through current cookies etc.
+*/
+
 const Login = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -43,6 +48,9 @@ const Login = () => {
             <Box padding="20px" display="flex" justifyContent="center" alignItems="center" backgroundColor={colors.primary[400]} borderRadius="12px">
                 <form onSubmit={formik.handleSubmit}>
                     <Box padding="20px">
+                        <Box display="flex" alignItems="center" justifyContent="center">
+                            <img src="../../../public/logo.png"></img>
+                        </Box>
                         <TextField 
                             fullWidth
                             label="Email"
