@@ -32,7 +32,6 @@ const Login = () => {
           values.email, 
           values.password
         );
-        console.log(user);
         setUser(user.user);
         navigate('/');
     }

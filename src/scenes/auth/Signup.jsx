@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react';
+import React,{ useContext, useState } from 'react';
 import { Box, Typography, useTheme, TextField, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from "yup";
@@ -15,6 +15,7 @@ const Signup = () => {
     const client = new PocketBase(import.meta.env.VITE_POCKETBASE_HOST);
     const {user, setUser} = useContext(UserContext);
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const formik = useFormik({
         initialValues: {
@@ -29,14 +30,24 @@ const Signup = () => {
     });
 
     const signup = async (values) => {
-        const user = await client.users.create(
-          values.email, 
-          values.password,
-          values.passwordConfirm
+        try{
+            await client.users.create({
+                email: values.email, 
+                password: values.password,
+                passwordConfirm: values.passwordConfirm
+            })
+        }catch(exception){
+            setError(exception.message);
+        }
+
+        const user = await client.users.authViaEmail(
+            values.email, 
+            values.password
         );
 
+        setUser(user.user);
         //Login user
-        // navigate('/');
+        navigate('/');
     }
 
 
@@ -45,6 +56,7 @@ const Signup = () => {
             <Box padding="20px" display="flex" justifyContent="center" alignItems="center" backgroundColor={colors.primary[400]} borderRadius="12px">
                 <form onSubmit={formik.handleSubmit}>
                     <Box padding="20px">
+                    <Typography color={colors.redAccent[600]} fullWidth>{error}</Typography>
                         <TextField 
                             fullWidth
                             label="Email"
@@ -77,8 +89,8 @@ const Signup = () => {
                             name="passwordConfirm"
                             value={formik.values.passwordConfirm}
                             onChange={formik.handleChange}
-                            error={!!formik.touched.password && !!formik.errors.password}
-                            helperText={formik.touched.password && formik.touched.password}
+                            error={!!formik.touched.passwordConfirm && !!formik.errors.passpasswordConfirmword}
+                            helperText={formik.touched.passwordConfirm && formik.touched.passwordConfirm}
                             />
                     </Box>
                     <Box display="flex" justifyContent="center" alignItems="center">
