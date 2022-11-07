@@ -8,7 +8,7 @@ import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
 import Dashboard from './scenes/dashboard/index';
 import NotFound from './scenes/404/NotFound'
-import Login from './scenes/auth/Login'
+import { Login, Signup } from './scenes/auth'
 import { UserContext, useUser } from './userContext' 
 // import Team from './scenes/team/index';
 // import Invoices from './scenes/invoices/index';
@@ -39,6 +39,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Dashboard/>}/>
                   <Route path="/login" element={<Login/>} />
+                  <Route path="/signup" element={<Signup/>} />
                   {/* <Route path="/team" element={<Team/>}/>
                   <Route path="/invoices" element={<Invoices/>}/>
                   <Route path="/contacts" element={<Contacts/>}/>
