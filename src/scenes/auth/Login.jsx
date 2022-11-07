@@ -27,6 +27,7 @@ const Login = () => {
         }
     });
 
+    //TODO: Refactor to own business logic component
     const login = async (values) => {
         const user = await client.users.authViaEmail(
           values.email, 

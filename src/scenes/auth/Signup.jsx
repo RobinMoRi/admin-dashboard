@@ -29,6 +29,7 @@ const Signup = () => {
         }
     });
 
+    //TODO: Refactor to own business logic component
     const signup = async (values) => {
         try{
             await client.users.create({
