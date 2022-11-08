@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-
+import PocketBase from 'pocketbase';
 
 import Topbar from './scenes/global/Topbar';
 import Sidebar from './scenes/global/Sidebar';
@@ -24,8 +24,18 @@ import { PrivateRoutes, LoggedInRoutes } from './components/hoc';
 
 
 function App() {
+  const client = new PocketBase(import.meta.env.VITE_POCKETBASE_HOST);
   const [theme, colorMode] = useMode();
   const user = useUser();
+
+  const refresh =  async () => {
+    const data = await client.users.refresh();
+    user.setUser(data.user);
+  }
+
+  useEffect(() => {
+    refresh();
+  }, [])
 
   return (
     <ColorModeContext.Provider value={colorMode}>
