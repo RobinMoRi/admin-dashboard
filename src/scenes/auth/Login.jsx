@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../../userContext'
 import { ColorModeContext, tokens } from '../../theme';
+import Waves from '../../assets/waves.svg';
 
 /* TODO
 - Add caching/cookie/storage to store user token that should be used in request
@@ -44,7 +45,9 @@ const Login = () => {
 
 
     return (
-        <Box width="100%" height="70%" display="flex" justifyContent="center" alignItems="center">
+        <>
+        
+        <Box position='absolute' width="100%" height="70%" display="flex" justifyContent="center" alignItems="center" zIndex="1">
             <Box padding="20px" display="flex" justifyContent="center" alignItems="center" backgroundColor={colors.primary[400]} borderRadius="12px">
                 <form onSubmit={formik.handleSubmit}>
                     <Box padding="20px">
@@ -82,7 +85,9 @@ const Login = () => {
                     </Box>
                 </form>
             </Box>
-        </Box>
+            </Box>
+            <img src={Waves} alt="Waves" style={{position: 'relative', zIndex: '-1', height: '100%'}} />
+        </>
     );
 }
 
