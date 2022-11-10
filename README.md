@@ -2,6 +2,7 @@
 ## Tools & technologies
 - Vite/React
 - Javascript
+- Material UI
 - [Pocketbase, click here for installment](https://pocketbase.io/docs)
 
 ### Execute app
