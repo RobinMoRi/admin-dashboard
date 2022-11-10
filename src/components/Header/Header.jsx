@@ -15,7 +15,7 @@ const Header = ({title, subtitle}) => {
                 sx={{ mb: "5px" }}>{title}
             </Typography>
             <Typography
-                variant="h2" 
+                variant="h5" 
                 color={colors.greenAccent[400]} 
                 fontWeight="bold" 
                 sx={{ mb: "5px" }}>{subtitle}

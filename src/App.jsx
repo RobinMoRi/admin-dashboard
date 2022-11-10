@@ -10,9 +10,9 @@ import Dashboard from './scenes/dashboard/index';
 import NotFound from './scenes/404/NotFound'
 import { Login, Signup } from './scenes/auth'
 import { UserContext, useUser } from './userContext' 
-// import Team from './scenes/team/index';
+import Team from './scenes/team/index';
 // import Invoices from './scenes/invoices/index';
-// import Contacts from './scenes/contacts/index';
+import Contacts from './scenes/contacts/index';
 // import Bar from './scenes/bar/index';
 // import Form from './scenes/form/index';
 // import Line from './scenes/line/index';
@@ -33,6 +33,7 @@ function App() {
     user.setUser(data.user);
   }
 
+  // I guess this is generally not how you do things..
   useEffect(() => {
     refresh();
   }, [])
@@ -48,10 +49,12 @@ function App() {
                 <Topbar />
                 <Routes>
                   <Route path="/" element={<Dashboard/>}/>
+                  
                   <Route element={<PrivateRoutes />}>
-                    {/* <Route path="/team" element={<Team/>}/>
-                    <Route path="/invoices" element={<Invoices/>}/>
+                    <Route path="/team" element={<Team/>}/>
                     <Route path="/contacts" element={<Contacts/>}/>
+                    {/* <Route path="/invoices" element={<Invoices/>}/>
+                
                     <Route path="/bar" element={<Bar/>}/>
                     <Route path="/form" element={<Form/>}/>
                     <Route path="/line" element={<Line/>}/>
