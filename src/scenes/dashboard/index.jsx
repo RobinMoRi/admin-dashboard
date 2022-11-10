@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { Box } from '@mui/material';
+
+import { UserContext } from '../../userContext'
+
+import Header from '../../components/Header/Header'
 
 const Dashboard = () => {
+    const { user } = useContext(UserContext);
+
     return (
-        <div>
-            <Link to="/login">
-            Anik kahpe b eri
-            </Link>
-        </div>
+        <Box m="20px">
+            <Box>
+                <Header
+                    title="DASHBOARD"
+                    subtitle={`Welcome ${user?.profile.name}!`}>
+
+                </Header>
+            </Box>
+        </Box>
     );
 }
 
