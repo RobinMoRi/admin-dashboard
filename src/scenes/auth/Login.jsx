@@ -1,9 +1,11 @@
-import React,{ useContext } from 'react';
-import { Box, Typography, useTheme, TextField, Button } from '@mui/material';
+import React,{ useContext, useState } from 'react';
+import { Box, Typography, useTheme, TextField, Button, InputAdornment } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from "yup";
 import PocketBase from 'pocketbase'
 import { useNavigate } from 'react-router-dom';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { UserContext } from '../../userContext'
 import { ColorModeContext, tokens } from '../../theme';
@@ -21,6 +23,7 @@ const Login = () => {
     const client = new PocketBase(import.meta.env.VITE_POCKETBASE_HOST);
     const {user, setUser} = useContext(UserContext);
     const navigate = useNavigate();
+    const [ showPassword, setShowPassword ] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -43,10 +46,13 @@ const Login = () => {
         navigate('/');
     }
 
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    }
+
 
     return (
         <>
-        
         <Box sx={{  backgroundImage: `url(${Waves})`, 
                     backgroundSize: 'cover',
                     backgroundAttachment: 'fixed'}} 
@@ -73,12 +79,18 @@ const Login = () => {
                             fullWidth
                             label="Password"
                             variant="filled"
-                            type="password"
+                            type={showPassword ? "password" : "text"}
                             name="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
                             error={!!formik.touched.password && !!formik.errors.password}
                             helperText={formik.touched.password && formik.touched.password}
+                            InputProps={{
+                                endAdornment: 
+                                <InputAdornment position="end" onClick={toggleShowPassword}>
+                                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                </InputAdornment>
+                            }}
                             />
                     </Box>
                     <Box display="flex" justifyContent="center" alignItems="center">
