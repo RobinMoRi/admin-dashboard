@@ -55,7 +55,10 @@ const Signup = () => {
 
     return (
         <>
-        <Box position="absolute" width="100%" height="70%" display="flex" justifyContent="center" alignItems="center">
+        <Box sx={{  backgroundImage: `url(${Waves})`, 
+                    backgroundSize: 'cover',
+                    backgroundAttachment: 'fixed'}} 
+            width="100%" height="100vh" display="flex" justifyContent="center" alignItems="center">
             <Box padding="20px" display="flex" justifyContent="center" alignItems="center" backgroundColor={colors.primary[400]} borderRadius="12px">
                 <form onSubmit={formik.handleSubmit}>
                     <Box padding="20px">
@@ -104,7 +107,6 @@ const Signup = () => {
                 </form>
             </Box>
         </Box>
-        <img src={Waves} alt="Waves" style={{position: 'relative', zIndex: '-1', height: '100%'}} />
         </>
     );
 }

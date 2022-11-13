@@ -23,12 +23,14 @@ const Dashboard = () => {
                 </Box>
             </Box> : 
             <>
-                <Box m="20px">
+                <Box sx={{  backgroundImage: `url(${Waves})`, 
+                    backgroundSize: 'cover',
+                    backgroundAttachment: 'fixed'}} 
+                    width="100%" height="100vh">
                     <Header
                             title="ADMIN DASHBOARD"
                             subtitle="Please login or sign up" />
                 </Box>
-                <img src={Waves} alt="Waves" style={{height: '100vh'}} />
             </>}
         </>
     );
