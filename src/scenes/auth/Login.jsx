@@ -16,7 +16,7 @@ import Waves from '../../assets/waves.svg';
 - Add checking if user is authenticated through current cookies etc.
 */
 
-const Login = () => {
+const Login = ({adminLogin}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
@@ -38,11 +38,22 @@ const Login = () => {
 
     //TODO: Refactor to own business logic component
     const login = async (values) => {
-        const user = await client.users.authViaEmail(
-          values.email, 
-          values.password
-        );
-        setUser(user.user);
+        setShowPassword(false);
+        if(adminLogin){
+            await client.admins.authViaEmail(
+                values.email, 
+                values.password
+            );
+            setUser({...user, isAdmin: true});
+        }else{
+            const authUser = await client.users.authViaEmail(
+              values.email, 
+              values.password
+            );
+            
+            setUser({user: authUser.user, isAdmin: false});
+        }
+        
         navigate('/');
     }
 
@@ -50,12 +61,12 @@ const Login = () => {
         setShowPassword(!showPassword);
     }
 
-
     return (
         <>
         <Box sx={{  backgroundImage: `url(${Waves})`, 
                     backgroundSize: 'cover',
-                    backgroundAttachment: 'fixed'}} 
+                    backgroundAttachment: 'fixed',
+                    '& .MuiInputAdornment-root:hover': { cursor: 'pointer !important' }}} 
             width="100%" height="100vh" display="flex" justifyContent="center" alignItems="center" zIndex="1">
             <Box padding="20px" display="flex" justifyContent="center" alignItems="center" backgroundColor={colors.primary[400]} borderRadius="12px">
                 <form onSubmit={formik.handleSubmit}>
@@ -79,7 +90,7 @@ const Login = () => {
                             fullWidth
                             label="Password"
                             variant="filled"
-                            type={showPassword ? "password" : "text"}
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             value={formik.values.password}
                             onChange={formik.handleChange}
@@ -88,7 +99,7 @@ const Login = () => {
                             InputProps={{
                                 endAdornment: 
                                 <InputAdornment position="end" onClick={toggleShowPassword}>
-                                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                                 </InputAdornment>
                             }}
                             />

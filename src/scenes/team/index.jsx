@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
 import { tokens } from '../../theme';
 import { DataGrid } from '@mui/x-data-grid';
@@ -7,13 +7,27 @@ import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import Header from '../../components/Header/Header';
-
-
+import PocketBase from 'pocketbase'
+import {Login} from '../auth'
+import { UserContext } from '../../userContext'
 
 
 const Team = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const client = new PocketBase(import.meta.env.VITE_POCKETBASE_HOST);
+    const {user, setUser} = useContext(UserContext);
+
+    const getUsers = async () => {
+        const pageResult = await client.users.getList(1, 100, {
+            filter: 'created >= "2022-01-01 00:00:00"',
+        });
+        console.log(pageResult);
+    }
+
+    useEffect(() => {
+        console.log(user)
+    }, [])
 
     const columns = [
         { field: "id", headerName: "ID" },
@@ -47,6 +61,9 @@ const Team = () => {
 
 
     return (
+        <>
+    {!user.isAdmin ? <Login adminLogin={true} /> :       
+
         <Box m="20px">
             <Header title="TEAM" subtitle="Managing the Team Members" />
             <Box m="40px 0 0 0" height="75vh"
@@ -77,7 +94,8 @@ const Team = () => {
                     rows={mockDataTeam}
                     columns={columns}/>
             </Box>
-        </Box>
+        </Box>}
+        </>
     );
 }
 

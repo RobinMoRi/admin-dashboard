@@ -11,7 +11,8 @@ const NotFound = () => {
         <Box 
             display="flex-row" 
             textAlign="center"
-            height="100%"
+            height="70%"
+
             >
             <SentimentDissatisfiedOutlined sx={{ fontSize: "202px"}}/>
             <Typography variant="h1" sx={{ fontSize: "102px"}} color={colors.grey[100]}>404</Typography>

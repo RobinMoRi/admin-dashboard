@@ -11,7 +11,7 @@ import NotFound from './scenes/404/NotFound'
 import { Login, Signup } from './scenes/auth'
 import { UserContext, useUser } from './userContext' 
 import Team from './scenes/team/index';
-// import Invoices from './scenes/invoices/index';
+import Invoices from './scenes/invoices/index';
 import Contacts from './scenes/contacts/index';
 // import Bar from './scenes/bar/index';
 // import Form from './scenes/form/index';
@@ -29,8 +29,23 @@ function App() {
   const user = useUser();
 
   const refresh =  async () => {
-    const data = await client.users.refresh();
-    user.setUser(data.user);
+    const userLocalStorage = JSON.parse(localStorage.getItem('pocketbase_auth'));
+    if(userLocalStorage.model?.profile){
+      const data = await client.users.refresh();
+      user.setUser({user: data.user, isAdmin: false});
+    }else{
+      client.admins.refresh().then((data) => {
+        return client.users.getList(1, 100, {
+          filter: `email='${data.admin.email}'`,
+      });
+      }).then((users) => {
+        const id = users.items[0].id;
+        // Fulhack
+        return client.users.getOne(id);
+      }).then((pocketBaseUser) => {
+        user.setUser({user: pocketBaseUser, isAdmin: true});
+      });
+    }
   }
 
   // I guess this is generally not how you do things..
@@ -53,8 +68,8 @@ function App() {
                   <Route element={<PrivateRoutes />}>
                     <Route path="/team" element={<Team/>}/>
                     <Route path="/contacts" element={<Contacts/>}/>
-                    {/* <Route path="/invoices" element={<Invoices/>}/>
-                
+                    <Route path="/invoices" element={<Invoices/>}/>
+                    {/*
                     <Route path="/bar" element={<Bar/>}/>
                     <Route path="/form" element={<Form/>}/>
                     <Route path="/line" element={<Line/>}/>

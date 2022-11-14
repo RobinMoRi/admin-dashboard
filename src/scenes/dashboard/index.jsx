@@ -19,7 +19,7 @@ const Dashboard = () => {
                     alignItems="center">
                     <Header
                         title="DASHBOARD"
-                        subtitle={`Welcome ${user?.profile.name}!`} />
+                        subtitle={`Welcome ${user?.user.profile.name}!`} />
                 </Box>
             </Box> : 
             <>

@@ -89,7 +89,7 @@ const Sidebar = () => {
                                     alt="profile-user"
                                     width="100px"
                                     height="100px"
-                                    src={`http://127.0.0.1:8090/api/files/systemprofiles0/${user?.profile.id}/${user?.profile.avatar}`}
+                                    src={`http://127.0.0.1:8090/api/files/systemprofiles0/${user?.user.profile.id}/${user?.user.profile.avatar}`}
                                     style={{
                                         cursor: "pointer",
                                         borderRadius: "50%"
@@ -104,14 +104,14 @@ const Sidebar = () => {
                                     sx={{
                                         m: "10px 0 0 0"
                                     }}
-                                >{user ? user.profile.name : 'Not logged in'}</Typography>
+                                >{user ? user.user.profile.name : 'Not logged in'}</Typography>
                                 <Typography
                                     variant="h5" 
                                     color={colors.greenAccent[500]}
                                     fontWeight="bold"
                                     sx={{
                                         m: "10px 0 0 0"
-                                    }}>Admin</Typography>
+                                    }}>{user.isAdmin ? "Admin" : "User"}</Typography>
                             </Box>
                         </Box>
                     )}
