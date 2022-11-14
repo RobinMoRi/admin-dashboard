@@ -1,11 +1,8 @@
-import React, { useEffect, useContext } from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import React, { useEffect, useContext, useState, Suspense } from 'react';
+import { Box, Typography, useTheme, CircularProgress } from '@mui/material';
 import { tokens } from '../../theme';
 import { DataGrid } from '@mui/x-data-grid';
-import { mockDataTeam } from '../../data/mockData'
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
+
 import Header from '../../components/Header/Header';
 import PocketBase from 'pocketbase'
 import {Login} from '../auth'
@@ -17,45 +14,29 @@ const Team = () => {
     const colors = tokens(theme.palette.mode);
     const client = new PocketBase(import.meta.env.VITE_POCKETBASE_HOST);
     const {user, setUser} = useContext(UserContext);
+    const [ team, setTeam ] = useState();
 
     const getUsers = async () => {
-        const pageResult = await client.users.getList(1, 100, {
-            filter: 'created >= "2022-01-01 00:00:00"',
-        });
-        console.log(pageResult);
+        const pageResult = await client.users.getList(1, 100);
+        setTeam(pageResult.items);
     }
 
     useEffect(() => {
-        console.log(user)
+        getUsers();
     }, [])
 
     const columns = [
-        { field: "id", headerName: "ID" },
-        { field: "name", headerName: "Name", flex: 1, cellClassName: "name-column--cell"},
-        { field: "age", headerName: "Age", type: "number", headerAlign: "left", align: "left"},
-        { field: "phone", headerName: "Phone Number", flex: 1},
-        { field: "email", headerName: "Email", flex: 1},
-        { field: "access", headerName: "Access Level", flex: 1, renderCell: ({row: {access}}) => {
-            return (
-                <Box
-                    width="60%"
-                    m="0 auto"
-                    p="5px"
-                    display="flex"
-                    justifyContent="center"
-                    backgroundColor={access === 'admin' ? colors.greenAccent[600] : colors.greenAccent[700]}
-                    borderRadius="4px"
-                    >
-                        {access === 'admin' && <AdminPanelSettingsOutlinedIcon />}
-                        {access === 'user' && <LockOpenOutlinedIcon />}
-                        {access === 'manager' && <SecurityOutlinedIcon />}
-                        <Typography color={colors.grey[100]} sx={{ml: "5px"}}>
-                            {access}
-                        </Typography>
-                </Box>
-            )
-        }},
-
+        { field: "id", headerName: "ID", flex: 1 },
+        { 
+            field: "profile", 
+            headerName: "Name", 
+            flex: 1, 
+            cellClassName: "name-column--cell",
+            renderCell: (params) => {
+                return <div>{params.row.profile.name}</div>;
+            }
+        },
+        { field: "email", headerName: "Email", flex: 1}
     ];
 
 
@@ -89,10 +70,10 @@ const Team = () => {
                         backgroundColor: colors.blueAccent[700]
                     }
                 }}>
-                <DataGrid 
-                    
-                    rows={mockDataTeam}
-                    columns={columns}/>
+                    {team ? <DataGrid 
+                        
+                        rows={team}
+                        columns={columns}/> : <CircularProgress color="secondary" />}
             </Box>
         </Box>}
         </>

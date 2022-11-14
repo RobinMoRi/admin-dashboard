@@ -28,6 +28,7 @@ function App() {
   const [theme, colorMode] = useMode();
   const user = useUser();
 
+  //TODO: FIX BELOW
   const refresh =  async () => {
     const userLocalStorage = JSON.parse(localStorage.getItem('pocketbase_auth'));
     if(userLocalStorage.model?.profile){
