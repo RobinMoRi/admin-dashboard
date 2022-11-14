@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 import Header from '../../components/Header/Header';
 import PocketBase from 'pocketbase'
-import {Login} from '../auth'
+import { Login } from '../auth'
 import { UserContext } from '../../userContext'
 
 
@@ -71,7 +71,7 @@ const Team = () => {
                     }
                 }}>
                     {team ? <DataGrid 
-                        
+                        rowsPerPageOptions={[5, 10, 20]}
                         rows={team}
                         columns={columns}/> : <CircularProgress color="secondary" />}
             </Box>
